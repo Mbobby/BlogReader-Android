@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.content.res.Resources;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -94,19 +93,12 @@ public class MainLIstActivity extends ListActivity {
         return false;
     }
 
-    public void updateList()
+    public void handleBlogResponse()
     {
+        progressBar.setVisibility(View.INVISIBLE);
         if(blogData == null)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(getString(R.string.error_title));
-            builder.setMessage(getString(R.string.error_message));
-            builder.setPositiveButton(android.R.string.ok, null);
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-            TextView emptyTextView = (TextView)getListView().getEmptyView();
-            emptyTextView.setText(getString(R.string.no_items));
+            updateDisplayForError();
         }
         else
         {
@@ -129,6 +121,17 @@ public class MainLIstActivity extends ListActivity {
                 Log.e(TAG, "Exception Caught in UpdateList:MainListActivity!", e);
             }
         }
+    }
+
+    private void updateDisplayForError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.error_title));
+        builder.setMessage(getString(R.string.error_message));
+        builder.setPositiveButton(android.R.string.ok, null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        TextView emptyTextView = (TextView)getListView().getEmptyView();
+        emptyTextView.setText(getString(R.string.no_items));
     }
 
     //Class created to allow multi-threading/DoInbackground operations away from the main thread
@@ -189,7 +192,7 @@ public class MainLIstActivity extends ListActivity {
         protected void onPostExecute(JSONObject result)
         {
             blogData = result;
-            updateList();
+            handleBlogResponse();
         }
     }
 
