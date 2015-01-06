@@ -3,8 +3,10 @@ package com.oris.emmanuelmong.blogreader;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -84,6 +87,24 @@ public class MainLIstActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        try
+        {
+            JSONArray blogPosts = blogData.getJSONArray("posts");
+            JSONObject blogPost = blogPosts.getJSONObject(position);
+            String postUrl = blogPost.getString("url");
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(postUrl));
+            startActivity(intent);
+        }
+        catch (JSONException e)
+        {
+            Log.e(TAG, "EXception Caught", e);
+        }
     }
 
     private boolean isNetworkAvailable()
