@@ -7,6 +7,7 @@
     <string name="no_items">No items to display!</string>
     <string name="error_title">Oops! Sorry!</string>
     <string name="error_message">There was an error getting data from the Blog</string>
+
     <string-array name="android_names">
         <item>Android beta</item>
         <item>Android 1.0</item>
@@ -20,5 +21,7 @@
         <item>Ice Cream Sandwich</item>
         <item>Jelly Bean</item>
     </string-array>
+
+    <string name="title_activity_blog_web_view">Blog Post</string>
 
 </resources>
