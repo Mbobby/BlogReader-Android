@@ -13,7 +13,6 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.ProgressBar;
